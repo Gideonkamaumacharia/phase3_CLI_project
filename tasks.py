@@ -15,14 +15,14 @@ def create_table():
                name TEXT NOT NULL
               )""")
     conn.commit()
-    conn.close()
+    #conn.close()
 
 create_table()
 
 class TasksDb:
     def __init__(self):
-        self.conn = sqlite3.connect("tasks_manager.db")
-        self.c = self.conn.cursor()
+        self.conn = conn
+        self.c = c
     
     def add_task(self,title,description, deadline,category):
         self.c.execute("""INSERT INTO tasks VALUES (?,?,?,?)""",(title,description,deadline,category))
@@ -33,7 +33,7 @@ class TasksDb:
     
 def main():
     
-    db = TasksDb
+    db = TasksDb()
     
     while True:
         print("\nTask Manager CLI\n")
@@ -46,7 +46,7 @@ def main():
             description = input("Enter task description: ")
             deadline = input("Enter the task deadline (YYYY-MM-DD): ")
             category = input("Enter the task category: ")
-            add_task(title,description, deadline,category)
+            db.add_task(title,description, deadline,category)
 
             
 
