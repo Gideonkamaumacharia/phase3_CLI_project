@@ -19,15 +19,39 @@ def create_table():
 
 create_table()
 
-class Tasks:
+class TasksDb:
     def __init__(self):
         self.conn = sqlite3.connect("tasks_manager.db")
         self.c = self.conn.cursor()
+    
+    def add_task(self,title,description, deadline,category):
+        self.c.execute("""INSERT INTO tasks VALUES (?,?,?,?)""",(title,description,deadline,category))
+
+        conn.commit()
+        print("Task added successfully.")
 
     
-        
+def main():
+    
+    db = TasksDb
+    
+    while True:
+        print("\nTask Manager CLI\n")
+        print("1.Add Task")
+
+        choice  = input("\nEnter your choice: ")
+
+        if choice == "1":
+            title = input("Enter task title: ")
+            description = input("Enter task description: ")
+            deadline = input("Enter the task deadline (YYYY-MM-DD): ")
+            category = input("Enter the task category: ")
+            add_task(title,description, deadline,category)
+
+            
 
 
-
-
+if __name__== "__main__":
+    main()
+    
    
