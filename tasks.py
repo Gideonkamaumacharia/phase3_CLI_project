@@ -59,6 +59,9 @@ class TasksDb:
             for category in categories:
                 print(category)
     
+    def close(self):
+        conn.close()
+    
 def main():
     
     db = TasksDb()
@@ -97,6 +100,7 @@ def main():
             db.view_categories() 
 
         elif choice == '6':
+            db.close()
             break
 
         else:
