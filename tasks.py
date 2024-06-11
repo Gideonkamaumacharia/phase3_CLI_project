@@ -94,7 +94,7 @@ def main():
             db.add_category(name)
 
         elif choice == '5':
-            db.view_categories()
+            db.view_categories() 
 
         elif choice == '6':
             break
