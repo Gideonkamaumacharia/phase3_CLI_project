@@ -1,5 +1,5 @@
 from __init__ import conn,c
-import sqlite3
+
 
 def create_table():
     c.execute("""CREATE TABLE IF NOT EXISTS tasks(
@@ -59,6 +59,16 @@ class TasksDb:
             for category in categories:
                 print(category)
     
+    def delete_tasks(self,task_id):
+        c.execute('''DELETE FROM tasks WHERE id =?''',(task_id,))
+        conn.commit()
+        print("Task deleted successfully.")
+
+    def delete_category(self,category_id):
+        c.execute('''DELETE FROM categories WHERE id = ?''',(category_id,))
+        conn.commit()
+        print("Category deleted")
+
     def close(self):
         conn.close()
     
@@ -73,7 +83,8 @@ def main():
         print("3. View Tasks")
         print("4. Add Category")
         print("5. View Categories")
-        print("6. Exit")
+        print("6. Delete Task")
+        print("7. Delete Category")
 
 
         choice  = input("\nEnter your choice: ")
@@ -98,10 +109,18 @@ def main():
 
         elif choice == '5':
             db.view_categories() 
-
+        
         elif choice == '6':
-            db.close()
-            break
+            task_id = input("Enter task ID to delete: ")
+            db.delete_tasks(task_id)
+
+        elif choice == '7':
+            category_id = input("Enter task category ID: " )
+            db.delete_category(category_id)
+
+        #elif choice == '6':
+            #db.close()
+            #break
 
         else:
             print("Invalid choice. Please try again.")
