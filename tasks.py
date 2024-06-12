@@ -85,6 +85,7 @@ def main():
         print("5. View Categories")
         print("6. Delete Task")
         print("7. Delete Category")
+        print("8. Exit")
 
 
         choice  = input("\nEnter your choice: ")
@@ -118,9 +119,9 @@ def main():
             category_id = input("Enter task category ID: " )
             db.delete_category(category_id)
 
-        #elif choice == '6':
-            #db.close()
-            #break
+        elif choice == '8':
+            db.close()
+            break
 
         else:
             print("Invalid choice. Please try again.")
