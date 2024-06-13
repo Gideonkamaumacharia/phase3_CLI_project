@@ -35,9 +35,10 @@ def main():
         print("4. Get Tasks by ID")
         print("5. Add category")
         print("6. View Categories")
-        print("7. Delete Task")
-        print("8. Delete Category")
-        print("9. Exit")
+        print("7. Get Category by ID")
+        print("8. Delete Task")
+        print("9. Delete Category")
+        print("10. Exit")
        
 
 
@@ -75,16 +76,25 @@ def main():
 
         elif choice == '6':
             db.view_categories() 
-        
+
         elif choice == '7':
+            category_id = input("Enter category ID to view: ")
+            category = db.get_category_by_id(category_id)
+            if category:
+                print("Category Details:")
+                print(f"ID: {category[0]}")
+                print(f"Name: {category[1]}")
+                        
+    
+        elif choice == '8':
             task_id = input("Enter task ID to delete: ")
             db.delete_tasks(task_id)
 
-        elif choice == '8':
+        elif choice == '9':
             category_id = input("Enter task category ID: " )
             db.delete_category(category_id)
 
-        elif choice == '9':
+        elif choice == '10':
             db.close()
             break
         

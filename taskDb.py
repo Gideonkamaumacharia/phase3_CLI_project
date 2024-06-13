@@ -97,6 +97,16 @@ class TasksDb:
             for category in categories:
                 print(category)
     
+    def get_category_by_id(self, category_id):
+        c.execute('''SELECT * FROM categories WHERE id = ?''', (category_id,))
+        category = c.fetchone()
+        if category:
+            return category
+        else:
+            print("Category not found.")
+            return None
+
+    
     def delete_tasks(self,task_id):
         c.execute('''DELETE FROM tasks WHERE id =?''',(task_id,))
         conn.commit()
