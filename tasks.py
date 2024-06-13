@@ -1,4 +1,5 @@
 from __init__ import conn,c
+import datetime
 
 
 def create_table():
@@ -16,7 +17,7 @@ def create_table():
                name TEXT NOT NULL
               )""")
     conn.commit()
-    #conn.close()
+  
 
 create_table()
 
@@ -26,10 +27,58 @@ class TasksDb:
         self.c = c
     
     def add_task(self,title,description, deadline,category,completed=0):
-        self.c.execute("""INSERT INTO tasks(title,description,deadline,category,completed) VALUES (?,?,?,?,?)""",(title,description,deadline,category,completed))
+        self.title = title
+        self.description = description
+        self.deadline = deadline
+        self.category = category
+        self.completed = completed
+    
+        c.execute("""INSERT INTO tasks(title,description,deadline,category,completed) VALUES (?,?,?,?,?)""",(self.title, self.description, self.deadline, self.category, self.completed))
 
         conn.commit()
         print("Task added successfully.")
+    
+    @property
+    def title(self):
+        return self._title
+    
+    @title.setter
+    def title(self, value):
+        if not value:
+            raise ValueError("Title cannot be empty.")
+        self._title = value
+
+    @property
+    def description(self):
+        return self._description
+
+    @description.setter
+    def description(self, value):
+        if not value:
+            raise ValueError("Description cannot be empty.")
+        self._description = value
+
+    @property
+    def deadline(self):
+        return self._deadline
+
+    @deadline.setter
+    def deadline(self, value):
+        try:
+            datetime.datetime.strptime(value, '%Y-%m-%d')
+        except ValueError:
+            raise ValueError("Deadline should be in YYYY-MM-DD format.")
+        self._deadline = value
+
+    @property
+    def category(self):
+        return self._category
+
+    @category.setter
+    def category(self, value):
+        if not value:
+            raise ValueError("Category cannot be empty.")
+        self._category = value
 
     def mark_task_completed(self,task_id):
         c.execute('''UPDATE tasks SET completed = 1 WHERE id = ?''', (task_id,))
