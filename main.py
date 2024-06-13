@@ -29,14 +29,16 @@ def main():
     
     while True:
         print("\nTask Manager CLI\n")
-        print("1.Add Task")
-        print("2.Mark Task As Complete")
+        print("1. Add Task")
+        print("2. Mark Task As Complete")
         print("3. View Tasks")
-        print("4. Add Category")
-        print("5. View Categories")
-        print("6. Delete Task")
-        print("7. Delete Category")
-        print("8. Exit")
+        print("4. Get Tasks by ID")
+        print("5. Add category")
+        print("6. View Categories")
+        print("7. Delete Task")
+        print("8. Delete Category")
+        print("9. Exit")
+       
 
 
         choice  = input("\nEnter your choice: ")
@@ -54,25 +56,39 @@ def main():
 
         elif choice == '3':
             db.view_tasks()
-
+        
         elif choice == '4':
+            task_id = input("Enter task ID to view: ")
+            task = db.get_task_by_id(task_id)
+            if task:
+                print("Task Details:")
+                print(f"ID: {task[0]}")
+                print(f"Title: {task[1]}")
+                print(f"Description: {task[2]}")
+                print(f"Deadline: {task[3]}")
+                print(f"Category: {task[4]}")
+                print(f"Completed: {'Yes' if task[5] else 'No'}")
+
+        elif choice == '5':
             name = input("Enter category name: ")
             db.add_category(name)
 
-        elif choice == '5':
+        elif choice == '6':
             db.view_categories() 
         
-        elif choice == '6':
+        elif choice == '7':
             task_id = input("Enter task ID to delete: ")
             db.delete_tasks(task_id)
 
-        elif choice == '7':
+        elif choice == '8':
             category_id = input("Enter task category ID: " )
             db.delete_category(category_id)
 
-        elif choice == '8':
+        elif choice == '9':
             db.close()
             break
+        
+       
 
         else:
             print("Invalid choice. Please try again.")

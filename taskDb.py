@@ -73,6 +73,15 @@ class TasksDb:
         else:
             for task in tasks:
                 print(task)
+    
+    def get_task_by_id(self, task_id):
+        c.execute('''SELECT * FROM tasks WHERE id = ?''', (task_id,))
+        task = c.fetchone()
+        if task:
+            return task
+        else:
+            print("Task not found.")
+            return None
 
     def add_category(self,name):
         c.execute('''INSERT INTO categories (name) VALUES (?)''', (name,))
